@@ -1,35 +1,48 @@
-
-import FullLogo from "src/layouts/full/shared/logo/FullLogo";
 import AuthLogin from "../authforms/AuthLogin";
 import { Link } from "react-router";
 
 const gradientStyle = {
-  background: "linear-gradient(45deg, rgb(238, 119, 82,0.2), rgb(231, 60, 126,0.2), rgb(35, 166, 213,0.2), rgb(35, 213, 171,0.2))",
-  backgroundSize: "400% 400%",
-  animation: "gradient 15s ease infinite",
+  background: "linear-gradient(135deg, #667eea, #764ba2)",
   height: "100vh",
 };
 
 const Login = () => {
   return (
-    <div style={gradientStyle} className="relative overflow-hidden h-screen">
-      <div className="flex h-full justify-center items-center px-4">
-        <div className="rounded-xl shadow-md bg-white dark:bg-darkgray p-6 w-full md:w-96 border-none">
-          <div className="flex flex-col gap-2 p-0 w-full">
-            <div className="mx-auto">
-              <FullLogo />
-            </div>
-            <p className="text-sm text-center text-dark my-3">Sign In on MatDash</p>
-            <AuthLogin />
-            <div className="flex gap-2 text-base text-ld font-medium mt-6 items-center justify-center">
-              <p>New to Matdash?</p>
-              <Link to="/auth/register" className="text-primary text-sm font-medium">
-                Create an account
-              </Link>
-            </div>
-          </div>
+    <div style={gradientStyle} className="flex items-center justify-center h-screen">
+
+      <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
+
+        {/* 🔥 LOGO PERSONALIZADO */}
+        <div className="flex justify-center mb-4">
+          <img
+            src="/img/logo.png"
+            alt="ShopStarter"
+            className="w-32"
+          />
         </div>
+
+        {/* TITULO */}
+        <h2 className="text-center text-xl font-semibold mb-2">
+          Iniciar sesión
+        </h2>
+
+        <p className="text-center text-gray-500 text-sm mb-6">
+          Bienvenido a ShopStarter
+        </p>
+
+        {/* FORMULARIO */}
+        <AuthLogin />
+
+        {/* LINK REGISTER */}
+        <div className="text-center mt-6 text-sm">
+          <span className="text-gray-500">¿No tienes cuenta?</span>{" "}
+          <Link to="/auth/register" className="text-primary font-semibold">
+            Crear cuenta
+          </Link>
+        </div>
+
       </div>
+
     </div>
   );
 };

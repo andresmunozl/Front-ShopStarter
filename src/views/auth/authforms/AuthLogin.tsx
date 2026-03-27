@@ -1,61 +1,77 @@
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import { Link, useNavigate } from "react-router";
-
-
+import { useNavigate } from "react-router";
+import { useState } from "react";
 
 const AuthLogin = () => {
   const navigate = useNavigate();
-  const handleSubmit = (event:React.FormEvent<HTMLFormElement>) => {
+
+  const [form, setForm] = useState({
+    email: "",
+    password: ""
+  });
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(event);
-     navigate("/");
-  }
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/auth/login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: form.email,
+          password: form.password
+        })
+      });
+
+      const data = await response.json();
+
+      console.log("LOGIN:", data);
+
+      if (response.ok) {
+        // ✅ guardar token (MUY IMPORTANTE)
+        localStorage.setItem("token", data.access);
+
+        // ✅ redirigir al dashboard
+        navigate("/");
+      } else {
+        alert("Credenciales incorrectas");
+      }
+
+    } catch (error) {
+      alert("Error de conexión");
+    }
+  };
+
   return (
-    <>
-      <form onSubmit={handleSubmit} >
-        <div className="mb-4">
-          <div className="mb-2 block">
-            <Label htmlFor="Username" value="Correo" />
-          </div>
-          <TextInput
-            id="Username"
-            type="text"
-            sizing="md"
-            required
-            className="form-control form-rounded-xl"
-          />
-        </div>
-        <div className="mb-4">
-          <div className="mb-2 block">
-            <Label htmlFor="userpwd" value="Password" />
-          </div>
-          <TextInput
-            id="userpwd"
-            type="password"
-            sizing="md"
-            required
-            className="form-control form-rounded-xl"
-          />
-        </div>
-        <div className="flex justify-between my-5">
-          <div className="flex items-center gap-2">
-            <Checkbox id="accept" className="checkbox" />
-            <Label
-              htmlFor="accept"
-              className="opacity-90 font-normal cursor-pointer"
-            >
-              Remeber this Device
-            </Label>
-          </div>
-          <Link to={"/"} className="text-primary text-sm font-medium">
-            Forgot Password ?
-          </Link>
-        </div>
-        <Button type="submit" color={"primary"}  className="w-full bg-primary text-white rounded-xl">
-          Sign in
-        </Button>
-      </form>
-    </>
+    <form onSubmit={handleSubmit}>
+
+      <div className="mb-4">
+        <Label value="Correo" />
+        <TextInput
+          type="email"
+          required
+          value={form.email}
+          onChange={(e)=>setForm({...form, email:e.target.value})}
+        />
+      </div>
+
+      <div className="mb-4">
+        <Label value="Contraseña" />
+        <TextInput
+          type="password"
+          required
+          value={form.password}
+          onChange={(e)=>setForm({...form, password:e.target.value})}
+        />
+      </div>
+
+      <Button type="submit" className="w-full bg-primary text-white rounded-xl">
+        Iniciar sesión
+      </Button>
+
+    </form>
   );
 };
 
