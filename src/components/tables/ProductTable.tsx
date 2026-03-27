@@ -106,6 +106,14 @@ const ProductTable = () => {
     { icon: "solar:pen-new-square-broken", listtitle: "Edit" },
     { icon: "solar:trash-bin-minimalistic-outline", listtitle: "Delete" },
   ];
+  const toggleProducts = async () => {
+    if (products.length > 0) {
+      setProducts([]);
+      setMessage("Datos limpiados");
+    } else {
+      await fetchAll();
+    }
+};
 
   return (
     <>
@@ -128,13 +136,14 @@ const ProductTable = () => {
             Buscar
           </button>
 
-          <button onClick={fetchAll} className="border p-2">
-            Mostrar todos
+         
+          <button onClick={toggleProducts} className="border p-2">
+          {products.length > 0 ? "Limpiar datos" : "Mostrar datos"}
           </button>
         </div>
 
         {/* ⚠️ MENSAJES */}
-        {message && <p style={{ color: "red" }}>{message}</p>}
+        {message && <p style={{ color: "negro" }}>{message}</p>}
 
         {/* 📋 RESULTADOS */}
         <ul>
