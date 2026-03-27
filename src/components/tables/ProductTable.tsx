@@ -1,8 +1,8 @@
-
 import { Badge, Dropdown, Progress } from "flowbite-react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { Icon } from "@iconify/react";
 import { Table } from "flowbite-react";
+import { useEffect, useState } from "react";
 
 import product1 from "/src/assets/images/products/dash-prd-1.jpg";
 import product2 from "/src/assets/images/products/dash-prd-2.jpg";
@@ -13,6 +13,17 @@ import product4 from "/src/assets/images/products/dash-prd-4.jpg";
 
 
 const ProductTable = () => {
+  
+const [products, setProducts] = useState([]);
+
+useEffect(() => {
+  fetch("http://127.0.0.1:8000/api/geo/vendors-locations/")
+    .then(res => res.json())
+    .then(data => setProducts(data))
+    .catch(error => console.error(error));
+
+}, []);
+
   const ProductTableData = [
     {
       img: product1,
@@ -74,6 +85,19 @@ const ProductTable = () => {
 
   return (
     <>
+<div className="mt-10 p-5 bg-gray-100 rounded-lg">
+  <h3 className="text-lg font-bold mb-3">Datos desde la API</h3>
+
+  <ul>
+    {products.map((item) => (
+      <li key={item.id} className="border-b py-2">
+        <span className="font-semibold">{item.name}</span>
+        {" - "}
+        {item.is_active ? "Activo" : "Inactivo"}
+      </li>
+    ))}
+  </ul>
+</div>
       <div className="rounded-xl dark:shadow-dark-md shadow-md bg-white dark:bg-darkgray p-6  relative w-full break-words">
         <h5 className="card-title">Table</h5>
         <div className="mt-3">
