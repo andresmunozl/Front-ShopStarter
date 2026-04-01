@@ -320,6 +320,13 @@ const SidebarContent: MenuItem[] = [
           },
         ],
       },
+      {
+        id: uniqueId(),
+        name: "Locations",
+        icon: "solar:location-pin-linear",
+        url: "apps/locations",
+        isPro: true,
+      },
     ],
   },
 
