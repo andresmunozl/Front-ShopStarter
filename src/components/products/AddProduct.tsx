@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
+import { aiService } from "../../../services/aiService";
 import "./ProductCatalog.css";
 
 type Category = {
@@ -39,13 +40,21 @@ export default function AddProduct() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
+
+    // ✨ AI state
+    const [aiLoading, setAiLoading] = useState(false);
+    const [aiFile, setAiFile] = useState<File | null>(null);
+    const [aiPreview, setAiPreview] = useState<string | null>(null);
+    const [aiTooltip, setAiTooltip] = useState<string | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
     const token = localStorage.getItem("access_token");
     const authHeaders: Record<string, string> = token
         ? { Authorization: `Bearer ${token}` }
         : {};
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/products/categories/create/", {
+        fetch("http://127.0.0.1:8000/api/products/categories/", {
             headers: authHeaders,
         })
             .then((r) => r.json())
@@ -77,6 +86,45 @@ export default function AddProduct() {
         }));
     }
 
+    function handleAIFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0] ?? null;
+        setAiFile(file);
+        setAiTooltip(null);
+        if (file) {
+            setAiPreview(URL.createObjectURL(file));
+        } else {
+            setAiPreview(null);
+        }
+    }
+
+    async function handleAIDescription() {
+        if (!aiFile) {
+            setAiTooltip("Primero selecciona una imagen para analizar.");
+            return;
+        }
+        setAiLoading(true);
+        setAiTooltip(null);
+        try {
+            const result = await aiService.generateProductDescription(aiFile);
+            if (result.success) {
+                // Typewriter effect
+                const texto = result.data.descripcion;
+                setForm((prev) => ({ ...prev, description: "" }));
+                let i = 0;
+                const interval = setInterval(() => {
+                    i++;
+                    setForm((prev) => ({ ...prev, description: texto.slice(0, i) }));
+                    if (i >= texto.length) clearInterval(interval);
+                }, 18);
+                setAiTooltip(`✅ Caption: "${result.data.caption}"`);
+            }
+        } catch {
+            setAiTooltip("❌ Error al conectar con la IA. ¿Está el backend corriendo?");
+        } finally {
+            setAiLoading(false);
+        }
+    }
+
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         setLoading(true);
@@ -102,7 +150,7 @@ export default function AddProduct() {
 
         console.log('BODY A ENVIAR:', body);
         try {
-            const res = await fetch("http://127.0.0.1:8000/api/products/create/", {
+            const res = await fetch("http://127.0.0.1:8000/api/products/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -212,6 +260,41 @@ export default function AddProduct() {
                     />
                 </div>
 
+                {/* ✨ AI Image Upload + Auto-Descripción */}
+                <div className="add-product__ai-box">
+                    <label className="add-product__label add-product__label--ai">✨ Generar descripción con IA</label>
+                    <div className="add-product__ai-row">
+                        <div className="add-product__ai-upload">
+                            <input
+                                ref={fileInputRef}
+                                type="file"
+                                accept="image/*"
+                                id="ai-image-input"
+                                onChange={handleAIFileChange}
+                                className="add-product__ai-file-input"
+                            />
+                            <label htmlFor="ai-image-input" className="add-product__ai-file-label">
+                                {aiFile ? aiFile.name : "📂 Seleccionar imagen"}
+                            </label>
+                        </div>
+                        <button
+                            type="button"
+                            id="ai-generate-btn"
+                            onClick={handleAIDescription}
+                            disabled={aiLoading || !aiFile}
+                            className={`add-product__ai-btn${aiLoading ? " add-product__ai-btn--loading" : ""}`}
+                        >
+                            {aiLoading ? "Analizando..." : "✨ Auto-completar"}
+                        </button>
+                    </div>
+                    {aiPreview && (
+                        <img src={aiPreview} alt="preview IA" className="add-product__ai-preview" />
+                    )}
+                    {aiTooltip && (
+                        <p className="add-product__ai-tooltip">{aiTooltip}</p>
+                    )}
+                </div>
+
                 <div className="add-product__field">
                     <label className="add-product__label">
                         Descripción <span className="add-product__required">*</span>
@@ -222,7 +305,7 @@ export default function AddProduct() {
                         onChange={handleChange}
                         required
                         rows={3}
-                        placeholder="Descripción del producto"
+                        placeholder="La descripción se puede generar con IA ✨ o escribirla manualmente."
                         className="add-product__input add-product__textarea"
                     />
                 </div>

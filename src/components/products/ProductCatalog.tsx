@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { AddProductButton } from "./AddProductButton";
+import { aiService, SmartSearchFilters } from "../../services/aiService";
 import "./ProductCatalog.css";
 
 type ApiProductImage = {
@@ -39,6 +40,11 @@ export function ProductCatalog() {
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const navigate = useNavigate();
 
+  // 🧠 Smart Search AI state
+  const [searchQuery, setSearchQuery] = useState("");
+  const [aiFilters, setAiFilters] = useState<SmartSearchFilters | null>(null);
+  const [searchLoading, setSearchLoading] = useState(false);
+
   useEffect(() => {
     let cancelled = false;
 
@@ -47,10 +53,13 @@ export function ProductCatalog() {
         setLoading(true);
         setError(null);
 
-        const res = await fetch("http://127.0.0.1:8000/api/products");
+        // /api/catalog/ es público (AllowAny) — no requiere token
+        const res = await fetch("http://127.0.0.1:8000/api/catalog/");
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-        const data: ApiProduct[] = await res.json();
+        // La vista usa PageNumberPagination → devuelve { count, results: [...] }
+        const json = await res.json();
+        const data: ApiProduct[] = json.results ?? json;
 
         const mapped: Product[] = data.map((p) => {
           const mainImage = p.images?.find((img) => img.is_main)?.url_image;
@@ -85,7 +94,7 @@ export function ProductCatalog() {
       : {};
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/products/create/${id}/`, {
+      const res = await fetch(`http://127.0.0.1:8000/api/products/${id}/`, {
         method: "DELETE",
         headers: authHeaders,
       });
@@ -100,6 +109,37 @@ export function ProductCatalog() {
     }
   }
 
+  // 🧠 Filtro aplicado sobre los productos
+  const filteredProducts = products.filter((p) => {
+    if (!aiFilters) return true;
+    const matchCat = aiFilters.categoria
+      ? p.category.toLowerCase().includes(aiFilters.categoria.toLowerCase())
+      : true;
+    const matchPrice = aiFilters.precio_max !== null
+      ? p.price <= aiFilters.precio_max
+      : true;
+    return matchCat && matchPrice;
+  });
+
+  async function handleSmartSearch(e: React.FormEvent) {
+    e.preventDefault();
+    if (!searchQuery.trim()) { setAiFilters(null); return; }
+    setSearchLoading(true);
+    try {
+      const res = await aiService.smartSearch(searchQuery);
+      if (res.success) setAiFilters(res.data.filters);
+    } catch {
+      // Silently fail, show all products
+    } finally {
+      setSearchLoading(false);
+    }
+  }
+
+  function clearSearch() {
+    setSearchQuery("");
+    setAiFilters(null);
+  }
+
   if (loading) return <p className="catalog__status">Cargando catálogo...</p>;
   if (error) return <p className="catalog__status catalog__status--error">Error: {error}</p>;
 
@@ -112,8 +152,43 @@ export function ProductCatalog() {
         <AddProductButton />
       </div>
 
+      {/* 🧠 Barra de búsqueda inteligente */}
+      <form className="catalog__search-form" onSubmit={handleSmartSearch}>
+        <div className="catalog__search-wrap">
+          <input
+            id="smart-search-input"
+            type="text"
+            className="catalog__search-input"
+            placeholder='Busca en lenguaje natural... ej: "ropa barata" o "comida cerca"'
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button
+            id="smart-search-btn"
+            type="submit"
+            className={`catalog__search-btn${searchLoading ? " catalog__search-btn--loading" : ""}`}
+            disabled={searchLoading}
+          >
+            {searchLoading ? "Buscando..." : "🧠 Buscar"}
+          </button>
+          {aiFilters && (
+            <button type="button" className="catalog__search-clear" onClick={clearSearch} title="Limpiar filtros">
+              ×
+            </button>
+          )}
+        </div>
+        {aiFilters && (
+          <div className="catalog__ai-badges">
+            {aiFilters.categoria && <span className="catalog__ai-badge">🏷️ {aiFilters.categoria}</span>}
+            {aiFilters.precio_max !== null && <span className="catalog__ai-badge">💰 máx. ${aiFilters.precio_max}</span>}
+            {aiFilters.cerca && <span className="catalog__ai-badge">📍 Cerca de ti</span>}
+            <span className="catalog__ai-badge catalog__ai-badge--count">{filteredProducts.length} resultado(s)</span>
+          </div>
+        )}
+      </form>
+
       <div className="catalog__grid">
-        {products.map((p) => (
+        {filteredProducts.map((p) => (
           <article key={p.id} className="product-card">
 
             <div className="product-card__vendor">{p.vendor}</div>

@@ -47,7 +47,8 @@ export default function ProductDetail() {
       try {
         setLoading(true);
         setError(null);
-        const res = await fetch(`http://127.0.0.1:8000/api/products/${id}/`);
+        // Usar /api/catalog/ en lugar de /api/products/ (que no permite GET público sin auth o no fue diseñado para eso)
+        const res = await fetch(`http://127.0.0.1:8000/api/catalog/${id}/`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data: ProductDetail = await res.json();
         if (!cancelled) {

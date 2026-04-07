@@ -21,6 +21,8 @@ const Error = lazy(() => import('../views/auth/error/Error'));
 const ProductDetail = lazy(() => import('../components/products/ProductDetail'));
 const AddProduct = lazy(() => import('../components/products/AddProduct'));
 
+const AiPlayground = lazy(() => import('../views/ai-playground/AiPlayground'));
+
 const Router = [
   {
     path: '/',
@@ -38,6 +40,7 @@ const Router = [
       { path: '/ui/shadow', exact: true, element: <Shadow /> },
       { path: '/icons/solar', exact: true, element: <Solar /> },
       { path: '/sample-page', exact: true, element: <SamplePage /> },
+      { path: '/ai-playground', exact: true, element: <AiPlayground /> },
       { path: '*', element: <Navigate to="/auth/404" /> },
     ],
   },
