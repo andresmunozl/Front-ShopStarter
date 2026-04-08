@@ -47,7 +47,7 @@ export default function ProductDetail() {
       try {
         setLoading(true);
         setError(null);
-        const res = await fetch(`http://127.0.0.1:8000/api/products/${id}/`);
+        const res = await fetch(`http://127.0.0.1:8000/api/products/products/${id}/`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data: ProductDetail = await res.json();
         if (!cancelled) {

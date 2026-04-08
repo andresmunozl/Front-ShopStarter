@@ -47,7 +47,7 @@ export function ProductCatalog() {
         setLoading(true);
         setError(null);
 
-        const res = await fetch("http://127.0.0.1:8000/api/products");
+        const res = await fetch("http://127.0.0.1:8000/api/products/products/");
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
         const data: ApiProduct[] = await res.json();
@@ -85,7 +85,7 @@ export function ProductCatalog() {
       : {};
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/products/create/${id}/`, {
+      const res = await fetch(`http://127.0.0.1:8000/api/products/products/${id}/`, {
         method: "DELETE",
         headers: authHeaders,
       });

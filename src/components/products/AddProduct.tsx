@@ -45,7 +45,7 @@ export default function AddProduct() {
         : {};
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/products/categories/create/", {
+        fetch("http://127.0.0.1:8000/api/products/categories/", {
             headers: authHeaders,
         })
             .then((r) => r.json())
@@ -102,7 +102,7 @@ export default function AddProduct() {
 
         console.log('BODY A ENVIAR:', body);
         try {
-            const res = await fetch("http://127.0.0.1:8000/api/products/create/", {
+            const res = await fetch("http://127.0.0.1:8000/api/products/products/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
