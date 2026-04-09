@@ -423,7 +423,7 @@ const removePoint = async () => {
 
           <h3 className="text-xl font-bold mb-4 text-blue-600">Ubicaciones</h3>
           <p className="text-xs text-gray-500 mb-2">
-             Doble click para trazar ruta 🚀
+             Click para ver ubicaciones 🚀
           </p>
           
           {filtered.length === 0 && <p>No hay datos</p>}
