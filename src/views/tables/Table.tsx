@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-import { ProductTable } from "src/components/tables/ProductTable"
-
-
-const Table = () => {
-  return (
-     <>
-     <ProductTable/>
-     </>
-  )
-}
-
-export default Table
-=======
 import React, { useEffect, useState } from 'react';
 import CardBox from '../../components/shared/CardBox';
 import { Table as FlowTable, Badge, Button, Spinner } from "flowbite-react";
@@ -155,4 +141,3 @@ const TableView = () => {
 };
 
 export default TableView;
->>>>>>> main
