@@ -31,19 +31,18 @@ const Table = lazy(() => import("../views/tables/Table"));
 const Form = lazy(() => import("../views/forms/Form"));
 const Shadow = lazy(() => import("../views/shadows/Shadow"));
 const Alert = lazy(() => import("../views/alerts/Alerts"));
-<<<<<<< HEAD
+
 const LocationsMaps = lazy(() => import("../components/locations/LocationsMaps"));
 
 
 
 // icons
-=======
->>>>>>> main
+
 const Solar = lazy(() => import("../views/icons/Solar"));
 const SamplePage = lazy(() => import('../views/sample-page/SamplePage'));
 
 const Router = [
-<<<<<<< HEAD
+
   {
     path: '/',
     element: <FullLayout />,
@@ -60,9 +59,8 @@ const Router = [
       { path: '*', element: <Navigate to="/auth/404" /> },
     ],
   },
-=======
+  
   // 1. PUBLIC ROUTES (Landing & Auth)
->>>>>>> main
   {
     path: '/',
     element: <BlankLayout />,
