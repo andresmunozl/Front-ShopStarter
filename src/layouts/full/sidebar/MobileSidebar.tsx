@@ -8,8 +8,24 @@ import React from "react";
 import FullLogo from "../shared/logo/FullLogo";
 import 'simplebar-react/dist/simplebar.min.css';
 import Upgrade from "./Upgrade";
+import { useAuth } from "../../../context/AuthContext";
 
 const MobileSidebar = () => {
+  const { user } = useAuth();
+
+  // Filtrar contenido del sidebar según el ROL
+  const filteredContent = SidebarContent?.filter(item => {
+    if (!user) return false;
+    
+    // Si el encabezado coincide con el rol (VENDEDOR, CLIENTE)
+    if (item.heading === user.role) return true;
+    
+    // Si el usuario es ADMIN, ve todo lo de SISTEMA
+    if (user.role === 'ADMIN' && (item.heading === 'SISTEMA' || item.heading === 'Apps')) return true;
+    
+    return false;
+  });
+
   return (
     <>
       <div>
@@ -23,8 +39,8 @@ const MobileSidebar = () => {
           <SimpleBar className="h-[calc(100vh_-_242px)]">
             <Sidebar.Items className="px-5 mt-2">
               <Sidebar.ItemGroup className="sidebar-nav hide-menu">
-                {SidebarContent &&
-                  SidebarContent?.map((item, index) => (
+                {filteredContent &&
+                  filteredContent?.map((item, index) => (
                     <div className="caption" key={item.heading}>
                       <React.Fragment key={index}>
                         <h5 className="text-link dark:text-white/70 caption font-semibold leading-6 tracking-widest text-xs pb-2 uppercase">

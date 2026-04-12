@@ -1,56 +1,59 @@
 
-import  {useState } from "react";
+import  {useState, useEffect } from "react";
 import { ChildItem } from "../Sidebaritems";
 import NavItems from "../NavItems";
 import { useLocation } from "react-router";
 import { CustomCollapse } from "../CustomCollapse";
 import React from "react";
+import { Tooltip } from "flowbite-react";
 
 interface NavCollapseProps {
   item: ChildItem;
+  isCollapsed?: boolean;
 }
 
-
-
-const NavCollapse: React.FC<NavCollapseProps> = ({ item }: any) => {
+const NavCollapse: React.FC<NavCollapseProps> = ({ item, isCollapsed = false }: any) => {
   const location = useLocation();
   const pathname = location.pathname;
 
-  // Determine if any child matches the current path
   const activeDD = item.children.find((t: { url: string }) => t.url === pathname);
-  
-
-  // Manage open/close state for the collapse
   const [isOpen, setIsOpen] = useState<boolean>(!!activeDD);
 
+  // Sync open state with active child but only when expanded
+  useEffect(() => {
+    if (!isCollapsed && activeDD) {
+      setIsOpen(true);
+    }
+  }, [isCollapsed, activeDD]);
 
-  // Toggle the collapse
   const handleToggle = () => {
-    setIsOpen((prev) => !prev);
+    if (!isCollapsed) {
+      setIsOpen((prev) => !prev);
+    }
   };
 
-  return (
+  const content = (
     <CustomCollapse
-      label={ `${item.name}`}
-      open={isOpen}
+      label={item.name}
+      open={isCollapsed ? false : isOpen}
       onClick={handleToggle}
       icon={item.icon} 
       isPro={item.isPro}
+      isCollapsed={isCollapsed}
       className={
         Boolean(activeDD)
-          ? "!text-white bg-primary rounded-xl hover:bg-primary hover:text-white shadow-btnshdw"
-          : "rounded-xl dark:text-white/80 hover:text-primary"
+          ? "!text-white bg-primary rounded-xl shadow-md"
+          : "rounded-xl dark:text-white/80 hover:bg-gray-50 dark:hover:bg-white/5"
       }
     >
-      {/* Render child items */}
-      {item.children && (
-        <div className="sidebar-dropdown">
+      {!isCollapsed && item.children && (
+        <div className="sidebar-dropdown ml-4 border-l border-gray-100 dark:border-white/10 mt-1 pl-2">
           {item.children.map((child: any) => (
             <React.Fragment key={child.id}>
               {child.children ? (
-                <NavCollapse item={child} /> // Recursive call for nested collapse
+                <NavCollapse item={child} isCollapsed={isCollapsed} />
               ) : (
-                <NavItems item={child} />
+                <NavItems item={child} isCollapsed={isCollapsed} />
               )}
             </React.Fragment>
           ))}
@@ -58,6 +61,12 @@ const NavCollapse: React.FC<NavCollapseProps> = ({ item }: any) => {
       )}
     </CustomCollapse>
   );
+
+  return isCollapsed ? (
+    <Tooltip content={item.name} placement="right" style="light">
+      <div className="mb-1">{content}</div>
+    </Tooltip>
+  ) : content;
 };
 
 export default NavCollapse;

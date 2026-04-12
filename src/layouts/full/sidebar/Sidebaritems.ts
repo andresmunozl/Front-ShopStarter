@@ -25,91 +25,67 @@ import { uniqueId } from "lodash";
 
 const SidebarContent: MenuItem[] = [
   {
-    heading: "HOME",
+    heading: "VENDEDOR",
     children: [
       {
-        name: "Dashboard",
+        name: "Mi Dashboard",
         icon: "solar:widget-add-line-duotone",
         id: uniqueId(),
-        url: "/",
+        url: "/vendedor/dashboard",
         isPro: false,
       },
       {
-        name: "Dashboard1",
-        icon: "solar:atom-line-duotone",
+        name: "Mis Productos",
+        icon: "solar:cart-large-minimalistic-outline",
         id: uniqueId(),
-        url: "https://matdash-react-tailwind-main.netlify.app/",
-        isPro: true,
-
+        url: "/vendedor/productos",
+        isPro: false,
       },
       {
-        name: "Dashboard2",
-        icon: "solar:chart-line-duotone",
+        name: "Gestión Reservas",
+        icon: "solar:calendar-mark-line-duotone",
         id: uniqueId(),
-        url: "https://matdash-react-tailwind-main.netlify.app/dashboards/dashboard2",
-        isPro: true,
-      },
-      {
-        name: "Dashboard3",
-        icon: "solar:screencast-2-line-duotone",
-        id: uniqueId(),
-        url: "https://matdash-react-tailwind-main.netlify.app/dashboards/dashboard3",
-        isPro: true,
-      },
-      {
-        name: "Front Pages",
-        id: uniqueId(),
-        icon: "solar:home-angle-linear",
-        children: [
-          {
-            name: "Homepage",
-            id: uniqueId(),
-            url: "https://matdash-react-tailwind-main.netlify.app/frontend-pages/homepage",
-            isPro: true,
-          },
-          {
-            name: "About Us",
-            id: uniqueId(),
-            url: "https://matdash-react-tailwind-main.netlify.app/frontend-pages/aboutus",
-            isPro: true,
-          },
-          {
-            name: "Blog",
-            id: uniqueId(),
-            url: "https://matdash-react-tailwind-main.netlify.app/frontend-pages/blog",
-            isPro: true,
-          },
-          {
-            name: "Blog Details",
-            id: uniqueId(),
-            url: "https://matdash-react-tailwind-main.netlify.app/frontend-pages/blog/detail/streaming-video-way-before-it-was-cool-go-dark-tomorrow",
-            isPro: true,
-          },
-          {
-            name: "Contact Us",
-            id: uniqueId(),
-            url: "https://matdash-react-tailwind-main.netlify.app/frontend-pages/contact",
-            isPro: true,
-          },
-          {
-            name: "Portfolio",
-            id: uniqueId(),
-            url: "https://matdash-react-tailwind-main.netlify.app/frontend-pages/portfolio",
-            isPro: true,
-          },
-          {
-            name: "Pricing",
-            id: uniqueId(),
-            url: "https://matdash-react-tailwind-main.netlify.app/frontend-pages/pricing",
-            isPro: true,
-          },
-        ],
+        url: "/vendedor/reservas",
+        isPro: false,
       },
     ],
   },
   {
-    heading: "UTILITIES",
+    heading: "CLIENTE",
     children: [
+      {
+        name: "Explorar Mapa",
+        icon: "solar:map-point-line-duotone",
+        id: uniqueId(),
+        url: "/cliente/home",
+        isPro: false,
+      },
+      {
+        name: "Catálogo",
+        icon: "solar:shop-2-outline",
+        id: uniqueId(),
+        url: "/cliente/productos",
+        isPro: false,
+      },
+      {
+        name: "Mis Reservas",
+        icon: "solar:calendar-mark-line-duotone",
+        id: uniqueId(),
+        url: "/cliente/reservas",
+        isPro: false,
+      },
+    ],
+  },
+  {
+    heading: "SISTEMA",
+    children: [
+      {
+        name: "Panel de Control",
+        icon: "solar:widget-add-line-duotone",
+        id: uniqueId(),
+        url: "/admin",
+        isPro: false,
+      },
       {
         name: "Typography",
         icon: "solar:text-circle-outline",
