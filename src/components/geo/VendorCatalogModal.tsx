@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Spinner, Card, Badge } from 'flowbite-react';
 import { Icon } from '@iconify/react';
+import { useAuth } from '../../context/AuthContext'; // ADD THIS
+import StarRating from '../StarRating/StarRating'; // ADD THIS
 import api from '../../utils/axios';
 
 interface Product {
@@ -20,6 +22,7 @@ interface VendorCatalogModalProps {
 }
 
 const VendorCatalogModal: React.FC<VendorCatalogModalProps> = ({ vendorId, isOpen, onClose, vendorName }) => {
+  const { user, token } = useAuth(); // ADD THIS
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -52,6 +55,15 @@ const VendorCatalogModal: React.FC<VendorCatalogModalProps> = ({ vendorId, isOpe
         Catálogo de <span className="text-primary">{vendorName || 'Vendedor'}</span>
       </Modal.Header>
       <Modal.Body className="bg-gray-50/50 dark:bg-dark-light">
+        {vendorId && (
+          <div className="mb-6">
+            <StarRating
+              vendorId={vendorId}
+              interactive={!!user && user.role === 'CLIENTE'}
+              token={token || undefined}
+            />
+          </div>
+        )}
         {loading ? (
           <div className="flex justify-center items-center py-20">
              <Spinner size="xl" />
