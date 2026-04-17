@@ -37,27 +37,27 @@ const Header = () => {
     <>
       <header
         className={`sticky top-0 z-[50] transition-all duration-300 ${isSticky
-          ? "bg-white/80 dark:bg-dark/80 backdrop-blur-md shadow-sm py-2"
-          : "bg-white dark:bg-dark py-4"
+          ? "bg-gradient-to-r from-[#2CD4D9]/90 via-[#3A17E4]/90 to-[#0A014A]/90 backdrop-blur-md shadow-lg py-2 text-white"
+          : "bg-gradient-to-r from-[#2CD4D9] via-[#3A17E4] to-[#0A014A] py-4 text-white"
           }`}
       >
         <Navbar fluid className="bg-transparent dark:bg-transparent px-4">
           <div className="flex items-center justify-between w-full">
-
             
             {/* Sección Izquierda: Botón de menú móvil y Logo */}
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setIsOpen(true)}
-                className="h-10 w-10 flex text-gray-600 dark:text-gray-300 xl:hidden hover:text-primary hover:bg-lightprimary rounded-xl justify-center items-center transition-colors"
+                className="h-10 w-10 flex text-white dark:text-white xl:hidden hover:bg-white/10 rounded-xl justify-center items-center transition-colors"
                 aria-label="Abrir menú"
               >
                 <Icon icon="solar:hamburger-menu-line-duotone" height={22} />
               </button>
               
               <div className="hidden sm:block">
-                 <h2 className="text-lg font-black tracking-tight text-gray-800 dark:text-white uppercase">
-                    Shop<span className="text-primary">Starter</span>
+                <h2 className="text-xl font-black tracking-tight text-white uppercase flex items-center">
+                    <span className="opacity-90">Shop</span>
+                    <span className="text-white ml-0.5">Starter</span>
                  </h2>
               </div>
             </div>
@@ -68,20 +68,20 @@ const Header = () => {
               {/* Lógica de Rol: El carrito solo se muestra a los Clientes */}
               {user?.role === 'CLIENTE' && (
                 <div className="flex items-center">
-                  <Cart />
+                  <Cart variant="light" />
                 </div>
               )}
 
               {/* Las notificaciones son visibles para todos los roles (Vendedor, Cliente, Admin) */}
               <div className="flex items-center">
-                <Notification />
+                <Notification variant="light" />
               </div>
 
               {/* Divisor visual */}
-              <div className="h-6 w-[1px] bg-gray-200 dark:bg-gray-700 mx-1 hidden sm:block"></div>
+              <div className="h-6 w-[1px] bg-white-20 mx-1 hidden sm:block"></div>
 
               {/* Menú desplegable del Perfil de Usuario */}
-              <Profile />
+              <Profile variant="light" />
               
             </div>
           </div>
