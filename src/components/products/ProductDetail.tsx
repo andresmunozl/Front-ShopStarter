@@ -235,7 +235,6 @@ export default function ProductDetail() {
         onClose={() => setIsPreviewOpen(false)} 
         imageUrl={previewUrl} 
         title={previewTitle} 
-        description={product.description}
       />
     </div>
   );
