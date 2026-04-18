@@ -47,12 +47,14 @@ export function ProductCatalog() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [previewUrl, setPreviewUrl] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
+  const [previewDescription, setPreviewDescription] = useState('');
 
   // Función para abrir la previsualización de una imagen en grande
-  const openPreview = (url: string, title: string) => {
+  const openPreview = (url: string, title: string , description: string) => {
     setPreviewUrl(url);
     setPreviewTitle(title);
     setIsPreviewOpen(true);
+    setPreviewDescription(description);
   };
 
   const handleReserve = async (productId: number) => {
@@ -306,6 +308,7 @@ export function ProductCatalog() {
         onClose={() => setIsPreviewOpen(false)} 
         imageUrl={previewUrl} 
         title={previewTitle} 
+        description={previewDescription}
       />
     </section>
   );
