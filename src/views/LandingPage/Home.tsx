@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import { Icon } from '@iconify/react';
 import { useEffect, useState } from "react";
 import api from "../../utils/axios";
+import { useTranslation } from "react-i18next";
 
 // Componente Psicológico: Animación Odometer para Social Proof
 const AnimatedCounter = ({ targetNumber, label }: { targetNumber: number, label: string }) => {
