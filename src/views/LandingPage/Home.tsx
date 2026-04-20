@@ -5,6 +5,7 @@ import { Icon } from '@iconify/react';
 import { useEffect, useState } from "react";
 import api from "../../utils/axios";
 import { useTranslation } from "react-i18next";
+import LanguageSelector from "./components/LanguageSelector";
 
 // Componente Psicológico: Animación Odometer para Social Proof
 const AnimatedCounter = ({ targetNumber, label }: { targetNumber: number, label: string }) => {
