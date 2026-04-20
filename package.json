@@ -23,7 +23,7 @@
     "formik": "^2.4.5",
     "formik-mui": "^5.0.0-alpha.0",
     "gray-matter": "^4.0.3",
-    "i18next": "^23.16.8",
+    "i18next": "^26.0.6",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "prop-types": "^15.7.2",
