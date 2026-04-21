@@ -4,7 +4,12 @@ import { useCart } from '../../../context/CartContext';
 import { Icon as Iconify } from '@iconify/react';
 import api from '../../../utils/axios';
 
-const Cart = () => {
+interface CartProps {
+  variant?: "light" | "dark";
+}
+
+const Cart = ({ variant = "dark" }: CartProps) => {
+  const isDark = variant === "dark";
   // Controla si el panel lateral (Drawer) del carrito está desplegado o no
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);

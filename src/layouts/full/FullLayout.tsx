@@ -18,7 +18,7 @@ const FullLayout: FC = () => {
           </div>
           <div className="page-wrapper-sub flex flex-col w-full dark:bg-darkgray min-h-screen">
             <Header />
-            <div className="bg-lightgray dark:bg-dark flex-grow rounded-bb p-6">
+            <div className="bg-gradient-to-br from-[#CFFEFF] to-[#BBADFF] dark:bg-dark flex-grow rounded-bb p-6">
               <ScrollToTop>
                 <div className="container-fluid mx-auto">
 

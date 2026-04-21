@@ -1,31 +1,59 @@
 import React from 'react';
 import { Modal } from 'flowbite-react';
 
+interface ProductProps {
+  name: string;
+  description: string;
+  price: string;
+  stock: number;
+  status: string;
+  vendor_name: string;
+  category_name: string;
+}
+
 interface ImagePreviewModalProps {
   isOpen: boolean;
   onClose: () => void;
   imageUrl: string;
-  title?: string;
+  product?: ProductProps;
 }
 
 const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({
   isOpen,
   onClose,
   imageUrl,
-  title = "Vista previa de imagen"
+  product,
 }) => {
+  if (!isOpen || !imageUrl || !product) return null;
+
   return (
     <Modal show={isOpen} onClose={onClose} size="3xl" popup>
       <Modal.Header>
-        <span className="p-4 font-bold text-gray-900 dark:text-white">{title}</span>
+        <span className="p-4 font-bold text-gray-900 dark:text-white">{product.name}</span>
       </Modal.Header>
       <Modal.Body className="p-2">
-        <div className="flex justify-center bg-gray-50 dark:bg-dark rounded-lg overflow-hidden">
-          <img 
-            src={imageUrl} 
-            alt={title} 
-            className="max-h-[80vh] w-auto object-contain shadow-lg"
+        <div className="flex flex-col md:flex-row gap-8">
+          <img
+            src={imageUrl}
+            alt={product.name}
+            className="max-h-[300px] w-auto object-contain shadow-lg mx-auto"
           />
+          <div className="flex flex-col gap-2">
+            <span className="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded-full font-bold uppercase">
+              {product.category_name}
+            </span>
+            <span className="text-lg font-bold">{product.status}</span>
+            <span className="text-3xl font-black text-primary">
+              ${Number(product.price).toLocaleString()} <span className="text-base text-gray-400">COP</span>
+            </span>
+            <p className="text-md text-gray-700 mt-2">{product.description}</p>
+            <p className="text-md">
+              <span className="font-bold">Vendedor:</span> {product.vendor_name}
+            </p>
+            <p className="text-md">
+              <span className="font-bold">Stock:</span> {product.stock}
+            </p>
+          </div>
         </div>
       </Modal.Body>
     </Modal>
