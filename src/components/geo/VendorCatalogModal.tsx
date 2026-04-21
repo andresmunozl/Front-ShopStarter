@@ -55,15 +55,6 @@ const VendorCatalogModal: React.FC<VendorCatalogModalProps> = ({ vendorId, isOpe
         Catálogo de <span className="text-primary">{vendorName || 'Vendedor'}</span>
       </Modal.Header>
       <Modal.Body className="bg-gray-50/50 dark:bg-dark-light">
-        {vendorId && (
-          <div className="mb-6">
-            <StarRating
-              vendorId={vendorId}
-              interactive={!!user && user.role === 'CLIENTE'}
-              token={token || undefined}
-            />
-          </div>
-        )}
         {loading ? (
           <div className="flex justify-center items-center py-20">
              <Spinner size="xl" />
@@ -95,10 +86,24 @@ const VendorCatalogModal: React.FC<VendorCatalogModalProps> = ({ vendorId, isOpe
                 </p>
                 <div className="mt-4 flex justify-between items-center">
                     <span className="text-lg font-black text-primary">${parseFloat(product.price.toString()).toFixed(2)}</span>
+        
                 </div>
+                
               </Card>
             ))}
           </div>
+        )}         
+        {vendorId && (
+          <div className="mt-6">
+            <StarRating
+              vendorId={vendorId}
+              interactive={!!user && user.role === 'CLIENTE'}
+              token={token ?? undefined}
+              username={user?.username}
+            />
+          </div>
+
+
         )}
       </Modal.Body>
     </Modal>

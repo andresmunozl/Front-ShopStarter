@@ -1,6 +1,7 @@
 import api from '../utils/axios';
 
 interface ReviewResponse {
+  id: string;
   client: string;
   rating: number;
   review_text?: string;
@@ -55,6 +56,34 @@ export const getVendorReviews = async (
       error?.response?.data?.detail ||
       error?.message ||
       'No fue posible cargar las reseñas.';
+    throw new Error(message);
+  }
+};
+export const updateReview = async (
+  reviewId: string,
+  rating: number,
+  reviewText: string,
+  token?: string
+): Promise<ReviewResponse> => {
+  try {
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    const response = await api.patch(
+      `reviews/edit/${reviewId}/`,
+      {
+        rating,
+        review_text: reviewText,
+      },
+      {
+        headers,
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    const message =
+      error?.response?.data?.message ||
+      error?.response?.data?.detail ||
+      error?.message ||
+      'Error al actualizar la reseña.';
     throw new Error(message);
   }
 };
