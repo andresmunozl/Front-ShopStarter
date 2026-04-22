@@ -29,7 +29,7 @@ const ProductTable = () => {
   const [submitting, setSubmitting] = useState(false);
   const [editingId, setEditingId] = useState<string | number | null>(null);
   const navigate = useNavigate();
-  
+
   // Estados para el visor de imágenes
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [previewUrl, setPreviewUrl] = useState('');
@@ -40,7 +40,7 @@ const ProductTable = () => {
     setPreviewTitle(title);
     setIsPreviewOpen(true);
   };
-  
+
   const [newProduct, setNewProduct] = useState({
     name: '',
     description: '',
@@ -73,7 +73,7 @@ const ProductTable = () => {
     try {
       const response = await api.get('products/get-categories/');
       console.log("Categorías cargadas:", response.data);
-      
+
       let cats: Category[] = [];
       const data = response.data;
 
@@ -111,14 +111,14 @@ const ProductTable = () => {
   const handleEdit = (product: Product) => {
     // Buscamos el ID coherente con el nombre de la categoría que viene del backend
     const categoryMatch = categories.find(c => c.name === product.category_name);
-    
+
     setEditingId(product.id);
     setNewProduct({
       name: product.name,
-      description: '', 
+      description: '',
       price: product.price.toString(),
       stock: product.stock.toString(),
-      category: categoryMatch ? categoryMatch.id.toString() : '', 
+      category: categoryMatch ? categoryMatch.id.toString() : '',
       image_file: null // Reseteamos al editar
     });
     setShowModal(true);
@@ -145,7 +145,7 @@ const ProductTable = () => {
         setSubmitting(false);
         return;
       }
-      
+
       if (editingId) {
         await api.put(`products/create/${editingId}/`, data);
       } else {
@@ -199,124 +199,124 @@ const ProductTable = () => {
     <>
       <div className="rounded-xl dark:shadow-dark-md shadow-md bg-white dark:bg-darkgray p-6 relative w-full break-words">
         <div className="flex justify-between items-center mb-4 font-[var(--main-font)]">
-            <h5 className="card-title text-xl font-bold">Gestión de Productos</h5>
-            <div className="flex gap-2">
-              <Button color="primary" onClick={() => {
-                setEditingId(null);
-                setNewProduct({
-                  name: '',
-                  description: '',
-                  price: '',
-                  stock: '',
-                  category: '',
-                  image_file: null
-                });
-                setShowModal(true);
-              }}>
-                <div className="flex items-center gap-2">
-                  <Icon icon="solar:add-circle-outline" height={20} />
-                  <span>Añadir Producto</span>
-                </div>
-              </Button>
-            </div>
+          
+          <div className="flex gap-2">
+            <Button color="primary" onClick={() => {
+              setEditingId(null);
+              setNewProduct({
+                name: '',
+                description: '',
+                price: '',
+                stock: '',
+                category: '',
+                image_file: null
+              });
+              setShowModal(true);
+            }}>
+              <div className="flex items-center gap-2">
+                <Icon icon="solar:add-circle-outline" height={20} />
+                <span>Añadir Producto</span>
+              </div>
+            </Button>
+          </div>
         </div>
         <div className="mt-3">
-            <div className="overflow-x-auto font-[var(--main-font)]">
-              <Table hoverable>
-                <Table.Head>
-                  <Table.HeadCell className="p-6">Producto</Table.HeadCell>
-                  <Table.HeadCell>Categoría</Table.HeadCell>
-                  <Table.HeadCell>Precio / Stock</Table.HeadCell>
-                  <Table.HeadCell>Estado</Table.HeadCell>
-                  <Table.HeadCell></Table.HeadCell>
-                </Table.Head>
-                <Table.Body className="divide-y divide-border dark:divide-darkborder">
-                  {products.length === 0 ? (
-                    <Table.Row>
-                      <Table.Cell colSpan={5} className="text-center py-10 opacity-50">
-                        No hay productos registrados aún.
+          <div className="overflow-x-auto font-[var(--main-font)]">
+            <Table hoverable>
+              <Table.Head>
+                <Table.HeadCell className="p-6">Producto</Table.HeadCell>
+                <Table.HeadCell>Categoría</Table.HeadCell>
+                <Table.HeadCell>Precio / Stock</Table.HeadCell>
+                <Table.HeadCell>Estado</Table.HeadCell>
+                <Table.HeadCell></Table.HeadCell>
+              </Table.Head>
+              <Table.Body className="divide-y divide-border dark:divide-darkborder">
+                {products.length === 0 ? (
+                  <Table.Row>
+                    <Table.Cell colSpan={5} className="text-center py-10 opacity-50">
+                      No hay productos registrados aún.
+                    </Table.Cell>
+                  </Table.Row>
+                ) : (
+                  products.map((product, index) => (
+                    <Table.Row key={product.id || index}>
+                      <Table.Cell className="whitespace-nowrap ps-6">
+                        <div className="flex gap-3 items-center">
+                          <img
+                            src={product.images?.[0]?.url_image || "https://placehold.co/60x60?text=PS"}
+                            alt="product"
+                            className="h-[60px] w-[60px] rounded-md object-cover shadow-sm bg-gray-50 cursor-zoom-in"
+                            onClick={() => openPreview(product.images?.[0]?.url_image || "https://placehold.co/60x60?text=PS", product.name)}
+                          />
+                          <div className="truncat line-clamp-2 sm:text-wrap max-w-56">
+                            <h6 className="text-sm font-semibold">{product.name}</h6>
+                          </div>
+                        </div>
+                      </Table.Cell>
+                      <Table.Cell>
+                        <Badge color="info" className="capitalize">
+                          {product.category_name || 'Sin categoría'}
+                        </Badge>
+                      </Table.Cell>
+                      <Table.Cell>
+                        <h5 className="text-base font-bold text-wrap">
+                          ${parseFloat(product.price.toString()).toLocaleString()}
+                        </h5>
+                        <div className="text-xs font-medium text-dark opacity-70 mb-2">
+                          Stock: {product.stock} unidades
+                        </div>
+                        <div className="me-5">
+                          <Progress
+                            progress={product.stock > 0 ? 100 : 0}
+                            color={product.stock > 10 ? 'success' : product.stock > 0 ? 'warning' : 'red'}
+                            size={"sm"}
+                          />
+                        </div>
+                      </Table.Cell>
+                      <Table.Cell>
+                        <Badge
+                          color={product.status === 'ACTIVE' ? 'success' : 'lightsecondary'}
+                          className="uppercase"
+                        >
+                          {product.status || 'SIN ESTADO'}
+                        </Badge>
+                      </Table.Cell>
+                      <Table.Cell>
+                        <Dropdown
+                          label=""
+                          dismissOnClick={true}
+                          renderTrigger={() => (
+                            <span className="h-9 w-9 flex justify-center items-center rounded-full hover:bg-lightprimary hover:text-primary cursor-pointer">
+                              <HiOutlineDotsVertical size={22} />
+                            </span>
+                          )}
+                        >
+                          {tableActionData.map((items, index) => (
+                            <Dropdown.Item
+                              key={index}
+                              className="flex gap-3"
+                              onClick={() => {
+                                if (items.listtitle === "Borrar") {
+                                  handleDelete(product.id);
+                                } else if (items.listtitle === "Editar") {
+                                  handleEdit(product);
+                                } else if (items.listtitle === "Ver Detalle") {
+                                  navigate(`/app/products/${product.id}`);
+                                }
+                              }}
+                            >
+                              <Icon icon={`${items.icon}`} height={18} />
+                              <span>{items.listtitle}</span>
+                            </Dropdown.Item>
+                          ))}
+                        </Dropdown>
                       </Table.Cell>
                     </Table.Row>
-                  ) : (
-                    products.map((product, index) => (
-                      <Table.Row key={product.id || index}>
-                        <Table.Cell className="whitespace-nowrap ps-6">
-                          <div className="flex gap-3 items-center">
-                            <img
-                              src={product.images?.[0]?.url_image || "https://placehold.co/60x60?text=PS"}
-                              alt="product"
-                              className="h-[60px] w-[60px] rounded-md object-cover shadow-sm bg-gray-50 cursor-zoom-in"
-                              onClick={() => openPreview(product.images?.[0]?.url_image || "https://placehold.co/60x60?text=PS", product.name)}
-                            />
-                            <div className="truncat line-clamp-2 sm:text-wrap max-w-56">
-                              <h6 className="text-sm font-semibold">{product.name}</h6>
-                            </div>
-                          </div>
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Badge color="info" className="capitalize">
-                            {product.category_name || 'Sin categoría'}
-                          </Badge>
-                        </Table.Cell>
-                        <Table.Cell>
-                          <h5 className="text-base font-bold text-wrap">
-                            ${parseFloat(product.price.toString()).toLocaleString()}
-                          </h5>
-                          <div className="text-xs font-medium text-dark opacity-70 mb-2">
-                             Stock: {product.stock} unidades
-                          </div>
-                          <div className="me-5">
-                            <Progress
-                              progress={product.stock > 0 ? 100 : 0}
-                              color={product.stock > 10 ? 'success' : product.stock > 0 ? 'warning' : 'red'}
-                              size={"sm"}
-                            />
-                          </div>
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Badge
-                            color={product.status === 'ACTIVE' ? 'success' : 'lightsecondary'}
-                            className="uppercase"
-                          >
-                            {product.status || 'SIN ESTADO'}
-                          </Badge>
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Dropdown
-                            label=""
-                            dismissOnClick={true}
-                            renderTrigger={() => (
-                              <span className="h-9 w-9 flex justify-center items-center rounded-full hover:bg-lightprimary hover:text-primary cursor-pointer">
-                                <HiOutlineDotsVertical size={22} />
-                              </span>
-                            )}
-                          >
-                            {tableActionData.map((items, index) => (
-                              <Dropdown.Item 
-                                key={index} 
-                                className="flex gap-3"
-                                onClick={() => {
-                                  if (items.listtitle === "Borrar") {
-                                    handleDelete(product.id);
-                                  } else if (items.listtitle === "Editar") {
-                                    handleEdit(product);
-                                  } else if (items.listtitle === "Ver Detalle") {
-                                    navigate(`/app/products/${product.id}`);
-                                  }
-                                }}
-                              >
-                                <Icon icon={`${items.icon}`} height={18} />
-                                <span>{items.listtitle}</span>
-                              </Dropdown.Item>
-                            ))}
-                          </Dropdown>
-                        </Table.Cell>
-                      </Table.Row>
-                    ))
-                  )}
-                </Table.Body>
-              </Table>
-            </div>
+                  ))
+                )}
+              </Table.Body>
+            </Table>
+          </div>
         </div>
       </div>
 
@@ -331,7 +331,7 @@ const ProductTable = () => {
                 id="name"
                 required
                 value={newProduct.name}
-                onChange={(e) => setNewProduct({...newProduct, name: e.target.value})}
+                onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
               />
             </div>
             <div>
@@ -341,7 +341,7 @@ const ProductTable = () => {
                 required
                 rows={3}
                 value={newProduct.description}
-                onChange={(e) => setNewProduct({...newProduct, description: e.target.value})}
+                onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -352,7 +352,7 @@ const ProductTable = () => {
                   type="number"
                   required
                   value={newProduct.price}
-                  onChange={(e) => setNewProduct({...newProduct, price: e.target.value})}
+                  onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
                 />
               </div>
               <div>
@@ -362,7 +362,7 @@ const ProductTable = () => {
                   type="number"
                   required
                   value={newProduct.stock}
-                  onChange={(e) => setNewProduct({...newProduct, stock: e.target.value})}
+                  onChange={(e) => setNewProduct({ ...newProduct, stock: e.target.value })}
                 />
               </div>
             </div>
@@ -372,7 +372,7 @@ const ProductTable = () => {
                 id="category"
                 required
                 value={newProduct.category}
-                onChange={(e) => setNewProduct({...newProduct, category: e.target.value})}
+                onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
               >
                 <option value="">Seleccionar categoría</option>
                 {categories.map((cat) => (
@@ -389,7 +389,7 @@ const ProductTable = () => {
                 helperText="Selecciona una foto real de tu producto."
                 onChange={(e) => {
                   if (e.target.files?.[0]) {
-                    setNewProduct({...newProduct, image_file: e.target.files[0]});
+                    setNewProduct({ ...newProduct, image_file: e.target.files[0] });
                   }
                 }}
               />
@@ -403,11 +403,11 @@ const ProductTable = () => {
           </form>
         </Modal.Body>
       </Modal>
-      <ImagePreviewModal 
-        isOpen={isPreviewOpen} 
-        onClose={() => setIsPreviewOpen(false)} 
-        imageUrl={previewUrl} 
-        title={previewTitle} 
+      <ImagePreviewModal
+        isOpen={isPreviewOpen}
+        onClose={() => setIsPreviewOpen(false)}
+        imageUrl={previewUrl}
+        title={previewTitle}
       />
     </>
   );

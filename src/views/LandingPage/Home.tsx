@@ -7,9 +7,8 @@ import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import api from "../../utils/axios";
 import { useTranslation } from "react-i18next";
-import LanguageSelector from "src/components/LanguageSelector/LanguageSelector.tsx";
 
-// Psicológico: Animación Odometer para Social Proof
+
 const AnimatedCounter = ({
   targetNumber,
   label,
@@ -22,7 +21,7 @@ const AnimatedCounter = ({
   useEffect(() => {
     if (targetNumber === 0) return;
     let start = 0;
-    const duration = 2000; // 2 segundos animación
+    const duration = 2000;
     const stepTime = Math.abs(Math.floor(duration / targetNumber));
     const increment = targetNumber > 100 ? Math.ceil(targetNumber / 50) : 1;
 
@@ -75,7 +74,7 @@ const Hero = () => {
 
         setMetrics({ vendors, products: totalProds });
       } catch (err) {
-        console.error("Métricas silenciosas fallaron", err);
+        console.error("No metrics (silent)", err);
       }
     };
     fetchMetrics();
@@ -89,13 +88,11 @@ const Hero = () => {
         <div className="absolute -bottom-8 left-1/2 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000"></div>
       </div>
       <div className="grid lg:grid-cols-2 gap-16 items-center">
-        {/* Texto Principal */}
+        {/* Main Text */}
         <div className="text-center lg:text-left z-10" data-aos="fade-right">
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border border-indigo-100 dark:border-indigo-900/50 text-indigo-700 dark:text-indigo-400 font-bold text-sm shadow-sm hover:shadow-md transition">
             <Icon icon="solar:rocket-bold-duotone" className="text-lg" />
-            <span>
-              {t("future_of_local_commerce")}
-            </span>
+            <span>{t("future_of_local_commerce")}</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-black text-gray-900 dark:text-white tracking-tighter mb-6 leading-[1.1]">
             {t("empower_your")} <br />
@@ -142,7 +139,7 @@ const Hero = () => {
             <div>{t("vendors_registered")}</div>
           </div>
         </div>
-        {/* Imagen Hero Dinámica */}
+        {/* Dynamic Image */}
         <div className="relative relative-group" data-aos="zoom-in" data-aos-delay="200">
           <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-[2.5rem] blur-2xl opacity-40 group-hover:opacity-60 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
           <img
@@ -321,9 +318,8 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-darkgray font-sans text-gray-900 selection:bg-indigo-500/30 selection:text-indigo-900 dark:selection:text-indigo-200 overflow-x-hidden">
       <TopBanner />
-      {/* Botón de idioma arriba a la derecha */}
+      {/* Idioma button at top-right */}
       <header style={{ display: 'flex', justifyContent: 'flex-end', padding: '1rem' }}>
-        <LanguageSelector />
       </header>
       <main>
         <Hero />

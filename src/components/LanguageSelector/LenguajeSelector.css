@@ -1,0 +1,48 @@
+.language-selector-root {
+  position: relative;
+  display: inline-block;
+}
+
+.language-selector-button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #AAA;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  outline: none;
+}
+
+.language-selector-list {
+  position: absolute;
+  margin: 4px 0 0 0;
+  padding: 0;
+  left: 0;
+  list-style: none;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  z-index: 999;
+  min-width: 120px;
+}
+
+.language-selector-list li {
+  width: 100%;
+}
+
+.language-selector-option {
+  padding: 8px 16px;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.16s;
+}
+
+.language-selector-option:hover,
+.language-selector-option:focus {
+  background: #f2f2f2;
+}
