@@ -1,5 +1,3 @@
-// name=src/views/LandingPage/Home.tsx
-
 import Footer from "./Footer";
 import TopBanner from "./TopBanner";
 import { Link } from "react-router";

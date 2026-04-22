@@ -9,7 +9,7 @@ const FullLayout: FC = () => {
 
   return (
     <div className="flex w-full min-h-screen dark:bg-darkgray overflow-hidden">
-      {/* Sidebar (izquierda) */}
+     
       <div
         className={`xl:block hidden sticky top-0 z-40 transition-all duration-300 ease-in-out ${isHovered ? 'w-64' : 'w-20'}`}
         onMouseEnter={() => setIsHovered(true)}
@@ -17,7 +17,7 @@ const FullLayout: FC = () => {
       >
         <Sidebar isHovered={isHovered} />
       </div>
-      {/* Contenido principal (derecha) */}
+    
       <div className="flex flex-col flex-1 min-h-screen">
         <Header /> 
         <div className="bg-gradient-to-br from-[#CFFEFF] to-[#BBADFF] dark:bg-dark flex-grow rounded-bb p-6">

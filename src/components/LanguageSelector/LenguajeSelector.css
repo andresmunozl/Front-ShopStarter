@@ -6,12 +6,15 @@
 .language-selector-button {
   padding: 8px 16px;
   border-radius: 8px;
-  border: 1px solid #AAA;
-  background: #fff;
+  border: 1px solid #5b5959;  
+  background: #ffffff;
   cursor: pointer;
   font-weight: 500;
   outline: none;
+  color: #333;
 }
+
+
 
 .language-selector-list {
   position: absolute;
@@ -19,12 +22,13 @@
   padding: 0;
   left: 0;
   list-style: none;
-  background-color: white;
-  border: 1px solid #ccc;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #080808;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   z-index: 999;
   min-width: 120px;
+  color: #333;
 }
 
 .language-selector-list li {
@@ -46,3 +50,4 @@
 .language-selector-option:focus {
   background: #f2f2f2;
 }
+
