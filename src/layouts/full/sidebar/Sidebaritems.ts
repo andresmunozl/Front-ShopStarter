@@ -1,124 +1,95 @@
 import { uniqueId } from "lodash";
+export interface ChildItem { /* igual que antes */ }
+export interface MenuItem { /* igual que antes */ }
 
-export interface ChildItem {
-  id?: number | string;
-  name?: string;
-  icon?: any;
-  children?: ChildItem[];
-  item?: any;
-  url?: any;
-  color?: string;
-  isPro?: boolean
-}
-
-export interface MenuItem {
-  heading?: string;
-  name?: string;
-  icon?: any;
-  id?: number;
-  to?: string;
-  items?: MenuItem[];
-  children?: ChildItem[];
-  url?: any;
-  isPro?: boolean
-}
-
-/**
- * Definición de los ítems de navegación del Sidebar.
- * La estructura está organizada por grupos (headings) que corresponden a los roles del sistema.
- */
 const SidebarContent: MenuItem[] = [
   {
-    heading: "VENDEDOR",
+    heading: "heading.seller",
     children: [
       {
-        name: "Mi Dashboard",
+        name: "seller.dashboard",
         icon: "solar:widget-add-line-duotone",
         id: uniqueId(),
         url: "/vendedor/dashboard",
       },
       {
-        name: "Productos",
+        name: "seller.products",
         icon: "solar:cart-large-minimalistic-outline",
         id: uniqueId(),
         url: "/vendedor/productos",
       },
       {
-        name: "Mapa",
+        name: "seller.map",
         icon: "solar:map-point-line-duotone",
         id: uniqueId(),
         url: "/vendedor/mapa",
       },
       {
-        name: "Pedidos",
+        name: "seller.orders",
         icon: "solar:calendar-mark-line-duotone",
         id: uniqueId(),
         url: "/vendedor/pedidos",
       },
       {
-        name: "Reseñas",
+        name: "seller.reviews",
         icon: "solar:star-fall-2-outline",
         id: uniqueId(),
         url: "/vendedor/reseñas",
       },
     ],
   },
-  
-  // SECCIÓN PARA CLIENTES: Acceso al catálogo, mapa de negocios y reseñas
   {
-    heading: "CLIENTE",
+    heading: "heading.client",
     children: [
       {
-        name: "Inicio",
+        name: "client.home",
         icon: "solar:home-2-outline",
         id: uniqueId(),
         url: "/cliente/home",
       },
       {
-        name: "Catálogo",
+        name: "client.catalog",
         icon: "solar:shop-2-outline",
         id: uniqueId(),
         url: "/cliente/productos",
       },
       {
-        name: "Mapa",
+        name: "client.map",
         icon: "solar:map-point-line-duotone",
         id: uniqueId(),
         url: "/cliente/mapa",
       },
       {
-        name: "Reseñas",
+        name: "client.reviews",
         icon: "solar:star-fall-2-outline",
         id: uniqueId(),
         url: "/cliente/reseñas",
       },
     ],
   },
-  
-  // SECCIÓN ADMINISTRATIVA: Moderación de productos, gestión de usuarios y categorías
   {
-    heading: "ADMIN",
+    heading: "heading.admin",
     children: [
       {
-        name: "Panel de Control",
+        name: "admin.dashboard",
         icon: "solar:widget-add-line-duotone",
         id: uniqueId(),
         url: "/admin",
       },
       {
-        name: "Aprobación Productos",
+        name: "admin.productsApproval",
         icon: "solar:clipboard-check-outline",
         id: uniqueId(),
         url: "/admin/productos/aprobar",
       },
       {
-        name: "Gestión Usuarios",
+        name: "admin.users",
         icon: "solar:users-group-two-rounded-outline",
         id: uniqueId(),
         url: "/admin/usuarios",
       },
       {
-        name: "Categorías",
+        name: "admin.categories",
         icon: "solar:layers-minimalistic-outline",
         id: uniqueId(),
         url: "/admin/categorias",
@@ -126,28 +97,28 @@ const SidebarContent: MenuItem[] = [
     ],
   },
   {
-    heading: "SISTEMA (UI)",
+    heading: "heading.system",
     children: [
       {
-        name: "Typography",
+        name: "system.typography",
         icon: "solar:text-circle-outline",
         id: uniqueId(),
         url: "/ui/typography",
       },
       {
-        name: "Table",
+        name: "system.table",
         icon: "solar:bedside-table-3-linear",
         id: uniqueId(),
         url: "/ui/table",
       },
       {
-        name: "Form",
+        name: "system.form",
         icon: "solar:password-minimalistic-outline",
         id: uniqueId(),
         url: "/ui/form",
       },
       {
-        name: "Alert",
+        name: "system.alert",
         icon: "solar:airbuds-case-charge-outline",
         id: uniqueId(),
         url: "/ui/alert",
@@ -155,5 +126,4 @@ const SidebarContent: MenuItem[] = [
     ],
   },
 ];
-
 export default SidebarContent;

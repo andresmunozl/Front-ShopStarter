@@ -9,8 +9,13 @@ import esTranslations from 'src/views/LandingPage/locales/es/translation.json';
 import enLangSel from 'src/components/LanguageSelector/locales/en.json';
 import esLangSel from 'src/components/LanguageSelector/locales/es.json';
 
-import TradHeaderES from 'src/layouts/full/header/locales/eS.json';
+import TradHeaderES from 'src/layouts/full/header/locales/es.json';
 import TradHeaderEN from 'src/layouts/full/header/locales/en.json';
+
+import TradSidebarES from 'src/layouts/full/sidebar/Locales/es.json';
+import TradSidebarEN from 'src/layouts/full/sidebar/Locales/en.json';
+
+
 
 i18n
   .use(initReactI18next)
@@ -20,12 +25,14 @@ i18n
         translation: enTranslations,
         languageSelector: enLangSel,
         headerTrad: TradHeaderEN,
+        sidebarTrad: TradSidebarEN,
 
       },
       es: {
         translation: esTranslations,
         languageSelector: esLangSel,
         headerTrad: TradHeaderES,
+        sidebarTrad: TradSidebarES,
 
       },
     },

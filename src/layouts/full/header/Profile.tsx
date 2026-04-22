@@ -3,12 +3,14 @@ import { Icon } from "@iconify/react";
 import user1 from "/src/assets/images/profile/user-1.jpg";
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "../../../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 interface ProfileProps {
   variant?: "light" | "dark";
 }
 
 const Profile = ({ variant = "dark" }: ProfileProps) => {
+  const { t } = useTranslation("headerTrad");
   const isDark = variant === "dark";
   const { logout, user } = useAuth();
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ const Profile = ({ variant = "dark" }: ProfileProps) => {
               />
             </span>
             <div className="text-left hidden sm:block">
-               <p className={`text-sm font-bold ${isDark ? 'text-dark' : 'text-white'}`}>{user?.username || 'Usuario'}</p>
+               <p className={`text-sm font-bold ${isDark ? 'text-dark' : 'text-white'}`}>{user?.username || t("profile.username-placeholder")}</p>
                <p className={`text-xs uppercase ${isDark ? 'text-gray-500' : 'text-white/70'}`}>{user?.role}</p>
             </div>
           </div>
@@ -49,7 +51,7 @@ const Profile = ({ variant = "dark" }: ProfileProps) => {
           className="px-3 py-3 flex items-center bg-hover group/link w-full gap-3 text-dark"
         >
           <Icon icon="solar:user-circle-outline" height={20} />
-          Mi Perfil
+          {t("profile.menu.profile")}
         </Dropdown.Item>
         <Dropdown.Item
           as={Link}
@@ -57,7 +59,7 @@ const Profile = ({ variant = "dark" }: ProfileProps) => {
           className="px-3 py-3 flex items-center bg-hover group/link w-full gap-3 text-dark"
         >
           <Icon icon="solar:letter-linear" height={20} />
-          Mi Cuenta
+          {t("profile.menu.account")}
         </Dropdown.Item>
         <Dropdown.Item
           as={Link}
@@ -65,7 +67,7 @@ const Profile = ({ variant = "dark" }: ProfileProps) => {
           className="px-3 py-3 flex items-center bg-hover group/link w-full gap-3 text-dark"
         >
           <Icon icon="solar:shield-keyhole-linear" height={20} />
-          Seguridad
+          {t("profile.menu.security")}
         </Dropdown.Item>
 
         <div className="p-3 pt-0">
@@ -74,7 +76,7 @@ const Profile = ({ variant = "dark" }: ProfileProps) => {
             size={'sm'} 
             className="w-full mt-2 border border-primary text-primary bg-transparent hover:bg-lightprimary outline-none focus:outline-none"
           >
-            Cerrar Sesión
+            {t("profile.menu.logout")}
           </Button>
         </div>
       </Dropdown>

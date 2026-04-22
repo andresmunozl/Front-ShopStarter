@@ -8,12 +8,14 @@ import Profile from "src/layouts/full/header/Profile.tsx";
 import Cart from "src/layouts/full/header/Cart.tsx";
 import { useAuth } from "../../../context/AuthContext";
 import LanguageSelector from "../../../components/LanguageSelector/LanguageSelector";
+import { useTranslation } from "react-i18next";
 
 import "src/layouts/full/header/Header.css";
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const { user } = useAuth();
+  const { t } = useTranslation("headerTrad");
 
   useEffect(() => {
     const handleScroll = () => setIsSticky(window.scrollY > 50);
@@ -34,14 +36,14 @@ const Header = () => {
               <button
                 onClick={() => setIsOpen(true)}
                 className="ss-burger"
-                aria-label="Abrir menú"
+                aria-label={t('openMenu')}
               >
                 <Icon icon="solar:hamburger-menu-line-duotone" height={24} />
               </button>
               <div className="ss-logo">
                 <h2>
-                  <span className="ss-logo-main">Shop</span>
-                  <span className="ss-logo-highlight">Starter</span>
+                  <span className="ss-logo-main">{t('logoShop')}</span>
+                  <span className="ss-logo-highlight">{t('logoStarter')}</span>
                 </h2>
               </div>
             </div>
@@ -56,7 +58,12 @@ const Header = () => {
           </div>
         </Navbar>
       </header>
-      <Drawer open={isOpen} onClose={handleClose} className="w-72 p-0">
+      {/* Drawer personalizado con z-index alto */}
+      <Drawer
+        open={isOpen}
+        onClose={handleClose}
+        className="w-72 p-0 custom-drawer-z"
+      >
         <Drawer.Items className="h-full">
           <MobileSidebar />
         </Drawer.Items>

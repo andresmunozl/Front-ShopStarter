@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../../../utils/axios";
 import { useAuth } from "../../../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 interface NotificationItem {
     id: string;
@@ -19,11 +20,11 @@ interface NotificationProps {
 }
 
 const Notification = ({ variant = "dark" }: NotificationProps) => {
+    const { t } = useTranslation("headerTrad");
     const isDark = variant === "dark";
     const { isAuthenticated } = useAuth();
     const queryClient = useQueryClient();
 
-    // Obtener notificaciones desde la API usando react-query para manejo de estado y caché
     const { data: notifications = [], isLoading } = useQuery<NotificationItem[]>({
         queryKey: ["notifications"],
         queryFn: async () => {
@@ -31,21 +32,18 @@ const Notification = ({ variant = "dark" }: NotificationProps) => {
             return response.data;
         },
         enabled: isAuthenticated,
-        refetchInterval: 30000, // Refrescar automáticamente cada 30 segundos
+        refetchInterval: 30000,
     });
 
-    // Mutación para marcar una notificación como leída en el servidor
     const markAsRead = useMutation({
         mutationFn: async (id: string) => {
             await api.post(`/core/notifications/${id}/mark_as_read/`);
         },
         onSuccess: () => {
-            // Invalidar la caché para forzar una recarga de las notificaciones tras el cambio
             queryClient.invalidateQueries({ queryKey: ["notifications"] });
         },
     });
 
-    // Calcular el número total de notificaciones no leídas para mostrar en el badge
     const unreadCount = notifications.filter((n) => !n.is_read).length;
 
     if (!isAuthenticated) return null;
@@ -53,32 +51,34 @@ const Notification = ({ variant = "dark" }: NotificationProps) => {
     return (
         <div className="relative group/menu">
             <Dropdown 
-                label="" 
-                className="rounded-xl w-[320px] shadow-xl border-0 overflow-hidden" 
-                dismissOnClick={true} 
+                label=""
+                className="rounded-xl w-[320px] shadow-xl border-0 overflow-hidden"
+                dismissOnClick={true}
                 renderTrigger={() => (
-                <span
-                    className={`h-10 w-10 rounded-full flex justify-center items-center cursor-pointer relative transition ${
-                        isDark 
-                        ? "hover:text-primary hover:bg-lightprimary text-gray-600 dark:text-gray-300" 
-                        : "text-white hover:bg-white/10"
-                    }`}
-                    aria-label="Notifications"
-                >
-                    <Icon icon="solar:bell-linear" height={22} />
-                    {unreadCount > 0 && (
-                        <Badge className="h-4 w-4 rounded-full absolute -end-1 -top-1 bg-red-500 text-white text-[10px] flex items-center justify-center p-0 border-2 border-white dark:border-dark">
-                            {unreadCount}
-                        </Badge>
-                    )}
-                </span>
-            )}
+                    <span
+                        className={`h-10 w-10 rounded-full flex justify-center items-center cursor-pointer relative transition ${
+                            isDark 
+                            ? "hover:text-primary hover:bg-lightprimary text-gray-600 dark:text-gray-300"
+                            : "text-white hover:bg-white/10"
+                        }`}
+                        aria-label={t("notifications.aria")}
+                    >
+                        <Icon icon="solar:bell-linear" height={22} />
+                        {unreadCount > 0 && (
+                            <Badge className="h-4 w-4 rounded-full absolute -end-1 -top-1 bg-red-500 text-white text-[10px] flex items-center justify-center p-0 border-2 border-white dark:border-dark">
+                                {unreadCount}
+                            </Badge>
+                        )}
+                    </span>
+                )}
             >
                 <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-darkgray">
-                    <h3 className="text-sm font-bold text-gray-800 dark:text-white">Notificaciones</h3>
+                    <h3 className="text-sm font-bold text-gray-800 dark:text-white">
+                        {t("notifications.title")}
+                    </h3>
                     {unreadCount > 0 && (
                         <span className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">
-                            {unreadCount} nuevas
+                            {t("notifications.new", { count: unreadCount })}
                         </span>
                     )}
                 </div>
@@ -91,7 +91,9 @@ const Notification = ({ variant = "dark" }: NotificationProps) => {
                     ) : notifications.length === 0 ? (
                         <div className="p-8 text-center">
                             <Icon icon="solar:bell-off-outline" className="mx-auto mb-2 text-gray-300" height={42} />
-                            <p className="text-sm text-gray-400">No tienes notificaciones</p>
+                            <p className="text-sm text-gray-400">
+                                {t("notifications.empty")}
+                            </p>
                         </div>
                     ) : (
                         notifications.map((item) => (
@@ -120,7 +122,7 @@ const Notification = ({ variant = "dark" }: NotificationProps) => {
                 {notifications.length > 0 && (
                     <div className="p-2 bg-gray-50 dark:bg-darkgray text-center border-t border-gray-100 dark:border-gray-700">
                         <Link to="/cliente/notificaciones" className="text-[11px] font-bold text-primary hover:underline">
-                            Ver todas las actividades
+                            {t("notifications.all")}
                         </Link>
                     </div>
                 )}

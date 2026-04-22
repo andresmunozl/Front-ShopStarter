@@ -1,0 +1,26 @@
+{
+  "heading.seller": "VENDEDOR",
+  "seller.dashboard": "Mi Dashboard",
+  "seller.products": "Productos",
+  "seller.map": "Mapa",
+  "seller.orders": "Pedidos",
+  "seller.reviews": "Reseñas",
+
+  "heading.client": "CLIENTE",
+  "client.home": "Inicio",
+  "client.catalog": "Catálogo",
+  "client.map": "Mapa",
+  "client.reviews": "Reseñas",
+
+  "heading.admin": "ADMIN",
+  "admin.dashboard": "Panel de Control",
+  "admin.productsApproval": "Aprobación Productos",
+  "admin.users": "Gestión Usuarios",
+  "admin.categories": "Categorías",
+
+  "heading.system": "SISTEMA (UI)",
+  "system.typography": "Typography",
+  "system.table": "Table",
+  "system.form": "Form",
+  "system.alert": "Alert"
+}

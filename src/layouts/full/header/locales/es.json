@@ -1,0 +1,34 @@
+{
+  "cartTitle": "Tu Carrito",
+  "cartProductsSelected": "{{count}} productos seleccionados",
+  "cartEmptyTitle": "Carrito vacío",
+  "cartEmptyMessage": "Parece que aún no has añadido nada. Explora el catálogo para empezar.",
+  "sellerLabel": "Vendedor: {{vendor}}",
+  "cartRemove": "Eliminar",
+  "estimatedTotal": "Total estimado",
+  "processPurchase": "Procesar Compra",
+  "processingOrder": "Procesando Reserva...",
+  "emptyCart": "Vaciar carrito",
+  "orderSuccess": "¡Pedido realizado con éxito! El vendedor ha sido notificado y tu producto ha sido reservado.",
+  "orderError": "Ocurrió un error al procesar el pedido. Es posible que alguno de los productos ya haya sido reservado por otro cliente.",
+
+  
+                  
+  "openMenu": "Abrir menú",
+  "logoShop": "Shop",
+  "logoStarter": "Starter",
+
+  "notifications.title": "Notificaciones",
+  "notifications.new": "{{count}} nuevas",
+  "notifications.empty": "No tienes notificaciones",
+  "notifications.all": "Ver todas las actividades",
+  "notifications.aria": "Notificaciones",
+
+  "profile.username-placeholder": "Usuario",
+  "profile.menu.profile": "Mi Perfil",
+  "profile.menu.account": "Mi Cuenta",
+  "profile.menu.security": "Seguridad",
+  "profile.menu.logout": "Cerrar Sesión"
+
+
+}

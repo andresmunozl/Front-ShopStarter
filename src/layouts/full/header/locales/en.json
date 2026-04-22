@@ -1,0 +1,32 @@
+{
+  "cartTitle": "Your Cart",
+  "cartProductsSelected": "{{count}} selected products",
+  "cartEmptyTitle": "Empty cart",
+  "cartEmptyMessage": "It looks like you haven’t added anything yet. Explore the catalog to get started.",
+  "sellerLabel": "Seller: {{vendor}}",
+  "cartRemove": "Remove",
+  "estimatedTotal": "Estimated total",
+  "processPurchase": "Checkout",
+  "processingOrder": "Processing Order...",
+  "emptyCart": "Empty cart",
+  "orderSuccess": "Order placed successfully! The seller has been notified and your product has been reserved.",
+  "orderError": "An error occurred while processing the order. It is possible some products have already been reserved by another customer.",
+
+  "openMenu": "Open menu",
+  "logoShop": "Shop",
+  "logoStarter": "Starter",
+
+  
+  "notifications.title": "Notifications",
+  "notifications.new": "{{count}} new",
+  "notifications.empty": "You have no notifications",
+  "notifications.all": "View all activities",
+  "notifications.aria": "Notifications",
+
+  "profile.username-placeholder": "User",
+  "profile.menu.profile": "My Profile",
+  "profile.menu.account": "My Account",
+  "profile.menu.security": "Security",
+  "profile.menu.logout": "Log Out"
+
+}

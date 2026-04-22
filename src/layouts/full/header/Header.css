@@ -109,3 +109,8 @@
   display: flex;
   align-items: center;
 }
+
+.custom-drawer-z {
+  z-index: 1050 !important;
+  position: fixed !important;
+}
