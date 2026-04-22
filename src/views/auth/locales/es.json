@@ -1,0 +1,17 @@
+{
+  "login.title": "Acceso a ShopStarter",
+  "login.email.label": "Correo Electrónico",
+  "login.email.placeholder": "correo@dominio.com",
+  "login.password.label": "Contraseña",
+  "login.password.placeholder": "Tu contraseña",
+  "login.forgot": "¿Olvidaste tu contraseña?",
+  "login.remember": "Recordar este dispositivo",
+  "login.submit": "Iniciar Sesión",
+  "login.loading": "Ingresando...",
+  "login.error.required": "Debes ingresar correo y contraseña.",
+  "login.error.invalid": "Credenciales inválidas. Verifica email y contraseña.",
+  "login.error.noserver": "No se pudo conectar con el servidor. Verifica que el backend esté corriendo.",
+  "login.error.unexpected": "Ocurrió un error inesperado.",
+  "login.new": "¿Nuevo en ShopStarter?",
+  "login.register": "Crea una cuenta"
+}

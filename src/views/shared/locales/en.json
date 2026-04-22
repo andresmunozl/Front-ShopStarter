@@ -1,0 +1,22 @@
+{
+    "title": "Business <span class='text-primary'>Map</span>",
+    "desc.seller": "Manage the locations of your points of sale. Click the map to add one.",
+    "desc.client": "Explore the vendors available in your area.",
+    "btn.location.active": "My Location Active",
+    "btn.location.inactive": "Activate My Location",
+    "badge.vendor": "{{role}} VIEW",
+    "modal.newLocation.title": "New Location",
+    "modal.newLocation.selectedCoords": "Selected Coordinates",
+    "modal.newLocation.latlng": "Lat: {{lat}}, Lng: {{lng}}",
+    "modal.newLocation.descLabel": "Location Description",
+    "modal.newLocation.descPlaceholder": "E.g. Downtown Branch, Main Warehouse...",
+    "modal.newLocation.save": "Save Point",
+    "modal.newLocation.cancel": "Cancel",
+    "map.popup.establishment": "Establishment",
+    "map.popup.noDescription": "No description",
+    "map.popup.owner": "Owner: {{email}}",
+    "map.popup.catalogBtn": "View Catalog",
+    "toast.save.success": "Location saved successfully",
+    "toast.save.error": "Error saving location",
+    "error.loadMarkers": "Error loading markers on the map"
+}

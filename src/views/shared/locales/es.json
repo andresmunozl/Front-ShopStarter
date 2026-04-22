@@ -1,0 +1,23 @@
+{
+  "title": "Mapa de <span class='text-primary'>Negocios</span>",
+  "desc.seller": "Gestiona las ubicaciones de tus puntos de venta. Haz clic en el mapa para añadir uno.",
+  "desc.client": "Explora los vendedores disponibles en tu zona.",
+  "btn.location.active": "Mi Ubicación Activa",
+  "btn.location.inactive": "Activar mi Ubicación",
+  "badge.vendor": "{{role}} VISTA",
+  "modal.newLocation.title": "Nueva Ubicación",
+  "modal.newLocation.selectedCoords": "Coordenadas Seleccionadas",
+  "modal.newLocation.latlng": "Lat: {{lat}}, Lng: {{lng}}",
+  "modal.newLocation.descLabel": "Descripción del lugar",
+  "modal.newLocation.descPlaceholder": "Ej: Sucursal Centro, Bodega Principal...",
+  "modal.newLocation.save": "Guardar Punto",
+  "modal.newLocation.cancel": "Cancelar",
+  "map.popup.establishment": "Establecimiento",
+  "map.popup.noDescription": "Sin descripción",
+  "map.popup.owner": "Propietario: {{email}}",
+  "map.popup.catalogBtn": "Ver Catálogo",
+  "toast.save.success": "Ubicación guardada con éxito",
+  "toast.save.error": "Error al guardar ubicación",
+  "error.loadMarkers": "Error al cargar marcadores en el mapa"
+}
+

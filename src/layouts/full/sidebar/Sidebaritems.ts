@@ -1,7 +1,30 @@
 import { uniqueId } from "lodash";
-export interface ChildItem { /* igual que antes */ }
-export interface MenuItem { /* igual que antes */ }
 
+// Interfaces completas:
+export interface ChildItem {
+  id?: number | string;
+  name?: string;
+  icon?: any;
+  children?: ChildItem[];
+  item?: any;
+  url?: any;
+  color?: string;
+  isPro?: boolean;
+}
+
+export interface MenuItem {
+  heading?: string;
+  name?: string;
+  icon?: any;
+  id?: number | string;
+  to?: string;
+  items?: MenuItem[];
+  children?: ChildItem[];
+  url?: any;
+  isPro?: boolean;
+}
+
+// El array SidebarContent queda igual:
 const SidebarContent: MenuItem[] = [
   {
     heading: "heading.seller",
@@ -126,4 +149,5 @@ const SidebarContent: MenuItem[] = [
     ],
   },
 ];
+
 export default SidebarContent;
