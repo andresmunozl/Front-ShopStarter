@@ -1,0 +1,111 @@
+.ss-header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  background: linear-gradient(90deg, #2CD4D9 0%, #3A17E4 50%, #0A014A 100%);
+  padding: 1.5rem 0;
+  color: #fff;
+  transition: all 0.3s;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+          backdrop-filter: none;
+}
+
+.ss-header--sticky {
+  padding: 0.75rem 0;
+  box-shadow: 0 6px 24px 0px rgba(60, 49, 126, 0.12);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+  background: linear-gradient(90deg, #2CD4D9ee 0%, #3A17E4ee 55%, #0A014Aee 100%);
+}
+
+.ss-navbar {
+  background: transparent !important;
+  padding: 0 1.5rem;
+}
+
+
+.ss-nav-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.ss-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ss-burger {
+  height: 2.5rem;
+  width: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: #fff;
+  border-radius: 0.75rem;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.ss-burger:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.ss-logo h2 {
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  align-items: center;
+  margin: 0;
+}
+
+.ss-logo-main {
+  opacity: 0.93;
+}
+
+.ss-logo-highlight {
+  margin-left: 0.25rem;
+  color: #fff;
+}
+
+/* --- DERECHA widgets --- */
+.ss-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.ss-divider {
+  width: 1px;
+  height: 1.5rem;
+  background: rgba(255,255,255,0.20);
+  margin: 0 0.5rem;
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .ss-divider {
+    display: block;
+  }
+}
+
+@media (max-width: 640px) {
+  .ss-logo {
+    display: none;
+  }
+}
+
+
+.ss-nav-right > * {
+  display: flex;
+  align-items: center;
+}

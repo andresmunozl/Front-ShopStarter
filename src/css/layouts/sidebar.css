@@ -1,75 +1,149 @@
+/* ============================
+   VARIABLES DE ANCHO Y COLORES
+=============================== */
+:root {
+  --sidebar-width: 256px;          /* Ancho normal del sidebar */
+  --sidebar-width-collapsed: 80px; /* Ancho colapsado o modo mini */
+  --sidebar-bg: #f4f7fb;
+  --sidebar-bg-active: #e9eef5;
+  --sidebar-border: #e2e8f0;
+  --sidebar-primary: #6567f2;      /* Cambia según tu paleta */
+}
+
+/* ========================
+   SIDEBAR PRINCIPAL (ESCRITORIO)
+======================== */
+.menu-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--sidebar-bg);
+  z-index: 60;
+  box-shadow: 2px 0 12px rgba(44, 73, 109, 0.07);
+  transition: width 0.3s cubic-bezier(.4,0,.2,1);
+  border-right: 1px solid var(--sidebar-border);
+  overflow-y: auto;
+}
+
+/* Estado sidebar mini (colapsado) */
+.menu-sidebar.is-collapsed {
+  width: var(--sidebar-width-collapsed);
+}
+
+/* =====================
+   MINI ICONO SIDEBAR
+====================== */
 .minisidebar-icon {
+  display: none; /* Lo puedes mostrar solo en breakpoints pequeños con JS/React */
+}
+
+/* =====================
+   BARRA DE TÍTULO / LOGO
+====================== */
+.brand-logo {
+  min-height: 72px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  color: var(--sidebar-primary);
+}
+
+/* =========================
+   NAVEGACIÓN Y AGRUPADORES
+============================ */
+.sidebar-nav { margin: 0; padding: 0; list-style: none; }
+.sidebar-nav .caption {
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px solid var(--sidebar-border);
+  font-weight: 600;
+  color: #b5bfc8;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+.sidebar-nav .caption:first-child {
+  padding-top: 0;
+  margin-top: 0;
+  border-top: 0;
+}
+
+/* =====================
+   LINKS / BOTONES
+====================== */
+.sidebar-dropdown li a,
+.sidebar-dropdown li button {
+  display: flex;
+  align-items: center;
+  padding: 10px 18px;
+  color: #98a4ae;
+  font-size: 15px;
+  opacity: 0.93;
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  width: 100%;
+  box-shadow: none;
+  transition: 
+    background 0.15s,
+    color 0.15s,
+    opacity 0.2s;
+  cursor: pointer;
+}
+
+.sidebar-dropdown li a.active,
+.sidebar-dropdown li a:hover,
+.sidebar-dropdown li button:hover {
+  opacity: 1;
+  color: var(--sidebar-primary);
+  background: var(--sidebar-bg-active);
+}
+
+/* Iconos tipo iconify (puedes ajustar el tamaño que prefieras) */
+.sidebar-dropdown li .iconify--fad {
+  font-size: 1.3em;
+  margin: 0 6px 0 0;
+  line-height: 1;
+}
+
+/* =====================
+   RESPONSIVE (MOBILE)
+====================== */
+/* Sidebar colapsado en pantallas chicas, o con clase especial */
+@media (max-width: 1024px) {
+  .menu-sidebar {
+    width: var(--sidebar-width-collapsed);
+    min-width: var(--sidebar-width-collapsed);
+  }
+  .minisidebar-icon {
+    display: flex;
     position: fixed;
     left: 0;
-    height: 100%;
     top: 0;
-    background-color: #f4f7fb;
-    width: 80px;
-}
-
-.menu-sidebar {
-    height: 100%;
-    width: 256px !important;
-    background: var(--bs-white);
-    top: 0;
-    left: 0px;
-    transition: left .4s ease-in-out;
-}
-
-.sidebar-nav .caption {
-    padding-top: 20px !important;
-    margin-top: 20px !important;
-    border-top: 1px solid var(--color-border);
-}
-
-.sidebar-nav .caption:first-child {
-    padding-top: 0 !important;
-    margin-top: 0px !important;
-    border-top: 0 !important;
-}
-
-.sidebar-dropdown li a {
-    opacity: 0.9;
-    padding: 8px 16px;
-    box-shadow: none !important;
-}
-.sidebar-dropdown li a.active {
-    opacity: 1;
-    color: var(--color-primary) !important;
-}   
-
-.sidebar-dropdown li a {
-    background-color: transparent !important;
-}
-
-.sidebar-dropdown li a:hover {
-    background-color: transparent !important;
-    opacity: 1;
-}
-
-.sidebar-dropdown li button:hover {
-    background-color: transparent !important;
-}
-
-.sidebar-dropdown li .iconify--fad {
-    height: 9px;
-    width: 9px;
-    margin: 0 4px;
-}
-.barnd-logo{
-    min-height: 72px;
-    display: flex;
-    justify-content: center;
+    width: var(--sidebar-width-collapsed);
+    height: 100vh;
+    background: var(--sidebar-bg);
+    z-index: 62; /* Por encima del main-sidebar si colapsado */
     align-items: center;
+    justify-content: center;
+  }
 }
-.nav-link{
-display: block;
-font-size: 14px;
-color: #98a4ae;
-text-decoration: none;
-background: 0 0;
-border: 0;
-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+/* El contenido principal debe arrancar después del sidebar: */
+.ss-content {
+  margin-left: var(--sidebar-width);
+  transition: margin-left 0.3s;
+}
+.menu-sidebar.is-collapsed ~ .ss-content {
+  margin-left: var(--sidebar-width-collapsed);
 }
 
-
+@media (max-width: 1024px) {
+  .ss-content {
+    margin-left: var(--sidebar-width-collapsed);
+  }
+}

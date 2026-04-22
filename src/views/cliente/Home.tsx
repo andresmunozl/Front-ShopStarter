@@ -32,7 +32,7 @@ const ClienteHome = () => {
   return (
     <div className="flex flex-col gap-10 pb-20 overflow-x-hidden">
       
-      {/* 🚀 Sección Hero: Bienvenida y llamados a la acción principales */}
+      {/*Sección Hero: Bienvenida y llamados a la acción principales */}
       <section className="relative h-[450px] flex items-center justify-center text-center overflow-hidden bg-gray-900 rounded-3xl mx-6 mt-6 shadow-2xl">
         <div className="absolute inset-0 z-0">
           <img 
@@ -63,7 +63,7 @@ const ClienteHome = () => {
         </div>
       </section>
 
-      {/* 🏷️ Sección de Categorías: Muestra las categorías más populares para navegación rápida */}
+      {/*Sección de Categorías: Muestra las categorías más populares para navegación rápida */}
       <section className="px-6" data-aos="fade-up" data-aos-delay="200">
         <div className="flex justify-between items-end mb-8">
             <div>
@@ -98,7 +98,7 @@ const ClienteHome = () => {
         </div>
       </section>
 
-      {/* 🗺️ Sección del Mapa Interactivo: Utiliza el componente compartido RoleBasedMap */}
+      {/* Sección del Mapa Interactivo: Utiliza el componente compartido RoleBasedMap */}
       <section className="px-6" data-aos="fade-up">
         <div className="bg-white dark:bg-dark-light rounded-[40px] p-8 shadow-2xl border border-gray-50 dark:border-gray-800 flex flex-col lg:flex-row gap-10">
            <div className="lg:w-1/3 flex flex-col justify-center">

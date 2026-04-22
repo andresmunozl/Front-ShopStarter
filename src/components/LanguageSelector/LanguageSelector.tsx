@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import './LanguageSelector.css';
+import 'src/components/LanguageSelector/LenguajeSelector.css';
 
 const LanguageSelector: React.FC = () => {
-  // Usa el namespace languageSelector
+  
   const { i18n, t } = useTranslation('languageSelector');
   const [open, setOpen] = useState(false);
 
@@ -22,7 +22,7 @@ const LanguageSelector: React.FC = () => {
       <button
         className="language-selector-button"
         onClick={() => setOpen((prev) => !prev)}
-        key={i18n.language} // Para asegurar rerender al cambiar idioma
+        key={i18n.language} 
       >
         🌐 {t('language')}
       </button>
