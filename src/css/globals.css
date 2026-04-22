@@ -69,16 +69,30 @@
   }
 
   .animate-fade-in {
-    animation: fadeIn 0.4s ease-out forwards;
+    -webkit-animation: fadeIn 0.4s ease-out forwards;
+            animation: fadeIn 0.4s ease-out forwards;
   }
 
   .animate-shake {
-    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    -webkit-animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  }
+
+  @-webkit-keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+
+  @-webkit-keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
   }
 
   @keyframes shake {
@@ -106,9 +120,35 @@
   .text-ld { @apply text-dark dark:text-white; }
   
   .animation-delay-2000 {
-    animation-delay: 2s;
+    -webkit-animation-delay: 2s;
+            animation-delay: 2s;
   }
   .animation-delay-4000 {
-    animation-delay: 4s;
+    -webkit-animation-delay: 4s;
+            animation-delay: 4s;
   }
+  
+}
+
+
+.header {
+  position: fixed;
+  z-index: 100;
+  width: calc(100% - 250px);                              
+  left: 250px;
+  top: 0;
+}
+
+.sidebar {
+  position: fixed;
+  z-index: 101;
+  width: 250px;
+  left: 0;
+  top: 0;
+  height: 100vh;
+}
+
+
+.main-content {
+  padding-left: 250px;   
 }
